@@ -9,16 +9,16 @@ HotKeySet("{PAUSE}", "TogglePause")
 HotKeySet("{ESC}", "Terminate")
 
 While 42
-	Sleep(Random(420, 1337))
+    Sleep(Random(420, 1337))
 WEnd
 
 Func TogglePause()
-	$Paused = Not $Paused
-	While $Paused
-		Sleep(100)
-	WEnd
+    $Paused = Not $Paused
+    While $Paused
+        Sleep(100)
+    WEnd
 EndFunc   ;==>TogglePause
 
 Func Terminate()
-	Exit 0
+    Exit 0
 EndFunc   ;==>Terminate
