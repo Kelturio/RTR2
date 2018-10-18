@@ -1,11 +1,11 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=..\..\..\..\..\..\Program Files (x86)\AutoIt3\Aut2Exe\Icons\AutoIt_Main_v10_256x256_RGB-A.ico
-#AutoIt3Wrapper_Outfile=..\bin\RTR2_x64.exe
+#AutoIt3Wrapper_Outfile=..\bin\RTR2_x86.exe
 #AutoIt3Wrapper_Outfile_x64=..\bin\RTR2_x64.exe
 #AutoIt3Wrapper_Compile_Both=y
 #AutoIt3Wrapper_Res_Comment=Comment
 #AutoIt3Wrapper_Res_Description=Running Through Russia 2 Bot
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.125
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.129
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #AutoIt3Wrapper_Res_ProductName=Running Through Russia 2 Bot
 #AutoIt3Wrapper_Res_CompanyName=fkn0wned
@@ -15,8 +15,8 @@
 #AutoIt3Wrapper_Res_Field=Made By|Searinox
 #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
 #AutoIt3Wrapper_AU3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6 -v 1 -v 3
-#AutoIt3Wrapper_Run_Before=call "..\compile\before.bat" %scriptdir% %scriptfile%
-#AutoIt3Wrapper_Run_After=call "..\compile\after.bat" %scriptdir% %scriptfile%
+#AutoIt3Wrapper_Run_Before=call "..\compile\before.bat" %scriptdir% %scriptfile% "..\compile\log.txt"
+#AutoIt3Wrapper_Run_After=call "..\compile\after.bat" %scriptdir% %scriptfile% "..\compile\log.txt"
 #AutoIt3Wrapper_Run_Tidy=y
 #Tidy_Parameters=/tc 4 /gd /reel /sci 9 /kv 0 /bdir "tidy\bdir\" /sf
 #AutoIt3Wrapper_Run_Au3Stripper=y

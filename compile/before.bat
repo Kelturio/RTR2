@@ -1,4 +1,3 @@
 @echo off
-echo Running Before > akk.log
-
-echo Ended >> akk.log
+echo Running Before > %3
+echo Ended >> %3

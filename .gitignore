@@ -2,3 +2,7 @@
 bin/
 
 BackUp/
+
+src/tidy/bdir/
+
+compile/log\.txt

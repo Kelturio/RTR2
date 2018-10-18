@@ -1,0 +1,296 @@
+========================================================================================================
+===  Tidy report for :C:\Users\Searinox\Documents\Git\RunningThroughRussia2Bot\src\RTR2.au3
+========================================================================================================
+
+00001    #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
+00002    #AutoIt3Wrapper_Icon=..\..\..\..\..\..\Program Files (x86)\AutoIt3\Aut2Exe\Icons\AutoIt_Main_v10_256x256_RGB-A.ico
+00003    #AutoIt3Wrapper_Outfile=..\bin\RTR2_x86.exe
+00004    #AutoIt3Wrapper_Outfile_x64=..\bin\RTR2_x64.exe
+00005    #AutoIt3Wrapper_Compile_Both=y
+00006    #AutoIt3Wrapper_Res_Comment=Comment
+00007    #AutoIt3Wrapper_Res_Description=Running Through Russia 2 Bot
+00008    #AutoIt3Wrapper_Res_Fileversion=1.0.0.128
+00009    #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
+00010    #AutoIt3Wrapper_Res_ProductName=Running Through Russia 2 Bot
+00011    #AutoIt3Wrapper_Res_CompanyName=fkn0wned
+00012    #AutoIt3Wrapper_Res_LegalCopyright=Searinox
+00013    #AutoIt3Wrapper_Res_LegalTradeMarks=Akk
+00014    #AutoIt3Wrapper_Res_SaveSource=y
+00015    #AutoIt3Wrapper_Res_Field=Made By|Searinox
+00016    #AutoIt3Wrapper_AU3Check_Stop_OnWarning=y
+00017    #AutoIt3Wrapper_AU3Check_Parameters=-d -w 1 -w 2 -w 3 -w 4 -w 5 -w 6 -v 1 -v 3
+00018    #AutoIt3Wrapper_Run_Before=call "..\compile\before.bat" %scriptdir% %scriptfile% "..\compile\log.txt"
+00019    #AutoIt3Wrapper_Run_After=call "..\compile\after.bat" %scriptdir% %scriptfile% "..\compile\log.txt"
+00020    #AutoIt3Wrapper_Run_Tidy=y
+00021    #Tidy_Parameters=/tc 4 /gd /reel /sci 9 /kv 0 /bdir "tidy\bdir\" /sf
+00022    #AutoIt3Wrapper_Run_Au3Stripper=y
+00023    #Au3Stripper_Parameters=/tl /debug /pe /mi=99 /rm /rsln
+00024    #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
+00025    
+00026    ;~ Desktop resolution 1680 x 1050
+00027    ;~ Game resolution 1280 x 768
+00028    
+00029    Opt("MustDeclareVars", 1) ;0=no, 1=require pre-declaration
+00030    Opt("SendKeyDelay", 5) ;5 milliseconds
+00031    Opt("SendKeyDownDelay", 1) ;1 millisecond
+00032    
+00033    HotKeySet("{PAUSE}", "TogglePause")
+00034    HotKeySet("{ESC}", "Terminate")
+00035    HotKeySet("{j}", "Jump")
+00036    
+00037    Global $Paused
+00038    Global $xPos = 700
+00039    Global $jumpDelay = 25
+00040    Global $farmKeys = 0
+00041    Global Const $xycGameOver[1][3] = [[736, 594, 0x686868]]
+00042    Global Const $xycConsulters[1][3] = [[$xPos, 625, 0x542900]]
+00043    Global Const $xycPolicemen[1][3] = [[$xPos, 630, 0xD1001C]]
+00044    Global Const $xycDoctors[1][3] = [[$xPos, 625, 0xE7E2E2]]
+00045    Global Const $xycBears[1][3] = [[$xPos, 721, 0x000B47]]
+00046    Global Const $xycEarth[1][3] = [[1267, 900, 0x7E3B04]]
+00047    Global Const $xycStats[1][3] = [[508, 339, 0xFBD44B]]
+00048    
+00049  +-While 42
+00050  |        If PixelCheckColor($xycConsulters) Then Jump()
+00051  |        If PixelCheckColor($xycPolicemen) Then Jump()
+00052  |        If PixelCheckColor($xycDoctors) Then Jump()
+00053  |        If PixelCheckColor($xycBears) Then Jump()
+00054  |        If PixelCheckColor($xycGameOver) Then RestartLevel()
+00055  |        If PixelCheckColor($xycEarth) And $farmKeys Then StartPoliceDepartment()
+00056  |        If PixelCheckColor($xycStats) And $farmKeys Then Back()
+00057  +-WEnd
+00058    
+00059  +-Func Back()
+00060  |        Local $ms = 16
+00061  |        MouseClick('left', 280, 850, 1, $ms)
+00062  |        StartPoliceDepartment()
+00063  +-EndFunc   ;==>Back
+00064    
+00065  +-Func Jump($ms = $jumpDelay)
+00066  |        Send("{SPACE}")
+00067  |        Sleep($ms)
+00068  |        Send("{SPACE}")
+00069  +-EndFunc   ;==>Jump
+00070    
+00071  +-Func PixelCheckColor($xyc)
+00072  |        Local $x, $y, $c, $m = 0, $l = UBound($xyc)
+00073  |  +-    For $i = 0 To $l - 1
+00074  |  |            $x = $xyc[$i][0]
+00075  |  |            $y = $xyc[$i][1]
+00076  |  |            $c = $xyc[$i][2]
+00077  |  |  +-        If PixelGetColor($x, $y) == $c Then
+00078  |  |  |                $m += 1
+00079  |  |  +-        EndIf
+00080  |  +-    Next
+00081  |        Return $m == $l
+00082  +-EndFunc   ;==>PixelCheckColor
+00083    
+00084  +-Func RestartLevel()
+00085  |        ConsoleWrite(@CRLF & 'Restart Level')
+00086  |        MouseClick('left', 730, 600, 1, 0)
+00087  |        MouseMove(420, 420, 10)
+00088  |        Sleep(1e2)
+00089  +-EndFunc   ;==>RestartLevel
+00090    
+00091  +-Func StartPoliceDepartment()
+00092  |        Local $ms = 16
+00093  |        MouseClick('left', 250, 200, 1, $ms)
+00094  |        MouseClick('left', 830, 700, 1, $ms)
+00095  |        MouseClick('left', 840, 540, 1, $ms)
+00096  |        MouseClick('left', 840, 460, 1, $ms)
+00097  |        MouseClick('left', 813, 673, 1, $ms)
+00098  |        MouseClick('left', 840, 847, 1, $ms)
+00099  +-EndFunc   ;==>StartPoliceDepartment
+00100    
+00101  +-Func Terminate()
+00102  |        Exit 0
+00103  +-EndFunc   ;==>Terminate
+00104    
+00105  +-Func TogglePause()
+00106  |        $Paused = Not $Paused
+00107  |  +-    While $Paused
+00108  |  |            Sleep(100)
+00109  |  +-    WEnd
+00110  +-EndFunc   ;==>TogglePause
+
+======================
+=== xref reports =====
+======================
+
+== User functions =================================================================================================
+                          Func
+Function name             Row     Referenced at Row(s)
+========================= ====== ==================================================================================
+Back                      00059 
+Jump                      00065 
+PixelCheckColor           00071 
+RestartLevel              00084 
+StartPoliceDepartment     00091 
+Terminate                 00101 
+TogglePause               00105 
+
+#### indicates that this specific variable only occurs one time in the script.
+---- indicates that this specific variable isn't declared with Dim/Local/Global/Const.
+
+== Variables ======================================================================================================
+Variable name             Dim   Used in Row(s)
+========================= ===== ===================================================================================
+#Au3Stripper_Parameters   ----- 00023
+#AutoIt3Wrapper_AU3Check_Parameters  ----- 00017
+#AutoIt3Wrapper_AU3Check_Stop_OnWarning  ----- 00016
+#AutoIt3Wrapper_Compile_Both  ----- 00005
+#AutoIt3Wrapper_Icon      ----- 00002
+#AutoIt3Wrapper_Outfile   ----- 00003
+#AutoIt3Wrapper_Outfile_x64  ----- 00004
+#AutoIt3Wrapper_Res_Comment  ----- 00006
+#AutoIt3Wrapper_Res_CompanyName  ----- 00011
+#AutoIt3Wrapper_Res_Description  ----- 00007
+#AutoIt3Wrapper_Res_Field  ----- 00015
+#AutoIt3Wrapper_Res_Fileversion  ----- 00008
+#AutoIt3Wrapper_Res_Fileversion_AutoIncrement  ----- 00009
+#AutoIt3Wrapper_Res_LegalCopyright  ----- 00012
+#AutoIt3Wrapper_Res_LegalTradeMarks  ----- 00013
+#AutoIt3Wrapper_Res_ProductName  ----- 00010
+#AutoIt3Wrapper_Res_SaveSource  ----- 00014
+#AutoIt3Wrapper_Run_After  ----- 00019
+#AutoIt3Wrapper_Run_Au3Stripper  ----- 00022
+#AutoIt3Wrapper_Run_Before  ----- 00018
+#AutoIt3Wrapper_Run_Tidy  ----- 00020
+#EndRegion                ----- 00024
+#Region                   ----- 00001
+#Tidy_Parameters          ----- 00021
+$Paused                   ----- 00037 00106 00107
+$c                        ----- 00072 00076 00077
+$farmKeys                 ----- 00040 00055 00056
+$i                        ----- 00073 00074 00075 00076
+$jumpDelay                ----- 00039 00065
+$l                        ----- 00072 00073 00081
+$m                        ----- 00072 00078 00081
+$ms                       ----- 00060 00061 00065 00067 00092 00093 00094 00095 00096 00097 00098
+$x                        ----- 00072 00074 00077
+$xPos                     ----- 00038 00042 00043 00044 00045
+$xyc                      ----- 00071 00072 00074 00075 00076
+$xycBears                 ----- 00045 00053
+$xycConsulters            ----- 00042 00050
+$xycDoctors               ----- 00044 00052
+$xycEarth                 ----- 00046 00055
+$xycGameOver              ----- 00041 00054
+$xycPolicemen             ----- 00043 00051
+$xycStats                 ----- 00047 00056
+$y                        ----- 00072 00075 00077
+0                         ----- 00040 00072 00073 00074 00086 00102
+0x000B47                  ----- 00045
+0x542900                  ----- 00042
+0x686868                  ----- 00041
+0x7E3B04                  ----- 00046
+0xD1001C                  ----- 00043
+0xE7E2E2                  ----- 00044
+0xFBD44B                  ----- 00047
+1                         ----- 00029 00031 00041 00042 00043 00044 00045 00046 00047 00061 00073 00075 00078 00086 
+                                00093 00094 00095 00096 00097 00098
+10                        ----- 00087
+100                       ----- 00108
+1267                      ----- 00046
+16                        ----- 00060 00092
+1e2                       ----- 00088
+2                         ----- 00076
+200                       ----- 00093
+25                        ----- 00039
+250                       ----- 00093
+280                       ----- 00061
+3                         ----- 00041 00042 00043 00044 00045 00046 00047
+339                       ----- 00047
+42                        ----- 00049
+420                       ----- 00087
+460                       ----- 00096
+5                         ----- 00030
+508                       ----- 00047
+540                       ----- 00095
+594                       ----- 00041
+600                       ----- 00086
+625                       ----- 00042 00044
+630                       ----- 00043
+673                       ----- 00097
+700                       ----- 00038 00094
+721                       ----- 00045
+730                       ----- 00086
+736                       ----- 00041
+813                       ----- 00097
+830                       ----- 00094
+840                       ----- 00095 00096 00098
+847                       ----- 00098
+850                       ----- 00061
+900                       ----- 00046
+@CRLF                     ----- 00085
+And                       ----- 00055 00056
+Const                     ----- 00041 00042 00043 00044 00045 00046 00047
+EndFunc                   ----- 00063 00069 00082 00089 00099 00103 00110
+EndIf                     ----- 00079
+Exit                      ----- 00102
+For                       ----- 00073
+Func                      ----- 00059 00065 00071 00084 00091 00101 00105
+Global                    ----- 00037 00038 00039 00040 00041 00042 00043 00044 00045 00046 00047
+If                        ----- 00050 00051 00052 00053 00054 00055 00056 00077
+Local                     ----- 00060 00072 00092
+Next                      ----- 00080
+Not                       ----- 00106
+#### Paused               00037
+Return                    ----- 00081
+Then                      ----- 00050 00051 00052 00053 00054 00055 00056 00077
+To                        ----- 00073
+WEnd                      ----- 00057 00109
+While                     ----- 00049 00107
+#### c                    00072
+#### farmKeys             00040
+#### jumpDelay            00039
+#### l                    00072
+#### m                    00072
+ms                        00060 00065 00092
+#### x                    00072
+#### xPos                 00038
+#### xyc                  00071
+#### xycBears             00045
+#### xycConsulters        00042
+#### xycDoctors           00044
+#### xycEarth             00046
+#### xycGameOver          00041
+#### xycPolicemen         00043
+#### xycStats             00047
+#### y                    00072
+== Sort Func Names Within #regions =====================================================================
+ --------------- Current sequence  ----------------------------------------------------------- 
+0000000001   #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
+0000000024   #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
+0000000059   Func Back()
+0000000063   EndFunc   ;==>Back
+0000000065   Func Jump($ms = $jumpDelay)
+0000000069   EndFunc   ;==>Jump
+0000000071   Func PixelCheckColor($xyc)
+0000000082   EndFunc   ;==>PixelCheckColor
+0000000084   Func RestartLevel()
+0000000089   EndFunc   ;==>RestartLevel
+0000000091   Func StartPoliceDepartment()
+0000000099   EndFunc   ;==>StartPoliceDepartment
+0000000101   Func Terminate()
+0000000103   EndFunc   ;==>Terminate
+0000000105   Func TogglePause()
+0000000110   EndFunc   ;==>TogglePause
+ --------------- New Sequence      ----------------------------------------------------------- 
+0000000001   #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
+0000000024   #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
+0000000059   Func Back()
+0000000063   EndFunc   ;==>Back
+0000000065   Func Jump($ms = $jumpDelay)
+0000000069   EndFunc   ;==>Jump
+0000000071   Func PixelCheckColor($xyc)
+0000000082   EndFunc   ;==>PixelCheckColor
+0000000084   Func RestartLevel()
+0000000089   EndFunc   ;==>RestartLevel
+0000000091   Func StartPoliceDepartment()
+0000000099   EndFunc   ;==>StartPoliceDepartment
+0000000101   Func Terminate()
+0000000103   EndFunc   ;==>Terminate
+0000000105   Func TogglePause()
+0000000110   EndFunc   ;==>TogglePause
+== END Sort Func Names Within #Region - #EndRegion =====================================================
+
